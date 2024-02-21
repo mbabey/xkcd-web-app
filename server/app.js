@@ -12,43 +12,41 @@ app.listen(port, () => {
 })
 
 app.get('/', async (_, res) => {
+  res.setHeader('Content-Type', 'application/json');
+
   let resContent;
-  console.log(process.env.XKCD_ROOT);
   try {
-    resContent = await axios.get(process.env.XKCD_ROOT + '/info.0.json');
-    resContent = await resContent.json();
+    const res = await axios.get(process.env.XKCD_ROOT + '/info.0.json');
+    resContent = res.data;
     console.log('[Response on route \'/\']', resContent);
   } catch (error) {
-    console.log('[Error on route \'/\']', error);
+    console.log('[Error on route \'/\']', error.data);
     res.status(500).send({ "error": "Could not fetch from xkcd API." });
     return
   }
 
-  res.setHeader('Content-Type', 'application/json');
   res.status(200).send(resContent);
 });
 
 app.get('/:number', async (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+
   const num = req.params.number;
+  if (isNaN(num)) {
+    res.status(404).send()
+    return;
+  }
 
   let resContent;
   try {
-    resContent = await axios.get(process.env.XKCD_ROOT + '/' + num + '/info.0.json');
-    resContent = await resContent.json();
-    console.log('[Response on route \'/\']', resContent);
+    const res = await axios.get(process.env.XKCD_ROOT + '/' + num + '/info.0.json');
+    resContent = res.data;
+    console.log('[Response on route \'/' + num + '\']', resContent);
   } catch (error) {
-    console.log('[Error on route \'/\']', error);
+    console.log('[Error on route \'/' + num + '\']', error.data);
     res.status(500).send({ "error": "Could not fetch from xkcd API." });
-    return
+    return;
   }
 
-  res.setHeader('Content-Type', 'application/json');
   res.status(200).send(resContent);
 });
-
-async function getxkcd(num) {
-  if (num) {
-
-  }
-
-}
