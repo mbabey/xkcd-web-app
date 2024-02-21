@@ -47,6 +47,7 @@ app.get('/', async (_, res) => {
 
   let viewCount;
   try {
+    console.log('[Access database on route \'/\']')
     viewCount = await incrementRecordGetViewCount(resContent.num);
     resContent.view_count = viewCount;
   } catch (error) {
@@ -55,6 +56,7 @@ app.get('/', async (_, res) => {
     return;
   }
 
+  console.log('Finally:', resContent);
   res.status(200).send(resContent);
 });
 
@@ -87,6 +89,7 @@ app.get('/:number', async (req, res) => {
 
   let viewCount;
   try {
+    console.log('[Access database on route \'/' + num + '\']');
     viewCount = await incrementRecordGetViewCount(resContent.num);
     resContent.view_count = viewCount;
   } catch (error) {
