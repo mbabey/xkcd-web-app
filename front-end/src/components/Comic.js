@@ -10,7 +10,7 @@ function Comic() {
   const { maxNum } = useContext(MaxNumContext);
 
   const [comic, setComicData] = useState(null);
-  
+
   useEffect(() => {
     const fetchComic = async () => {
       let res;
@@ -28,7 +28,11 @@ function Comic() {
   }, [number]);
 
   if (!comic) {
-    return <div>Loading...</div>;
+    return <div className={style.title}>Loading...</div>;
+  }
+
+  if (comic.error) {
+    return <div className={style.title}>Error: Could not find the requested comic!</div>
   }
 
   return (
@@ -82,7 +86,7 @@ function getRandom(max, min) {
 }
 
 function parseTranscript(transcript) {
-  if (transcript === '') {
+  if (transcript === '' || transcript === undefined) {
     return <></>;
   }
 
