@@ -2,9 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const ViewCount = require('./model.js');
 const axios = require('axios');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
+app.use(cors());
 
 const port = parseInt(process.env.PORT, 10) || 3000
 
