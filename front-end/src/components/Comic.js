@@ -10,7 +10,6 @@ function Comic() {
   const { maxNum } = useContext(MaxNumContext);
 
   const [comic, setComicData] = useState(null);
-  const [curr, setCurr] = useState(0);
   
   useEffect(() => {
     const fetchComic = async () => {
@@ -22,7 +21,6 @@ function Comic() {
       }
       const data = await res.json();
 
-      setCurr(data.num);
       setComicData(data);
     };
 
@@ -52,7 +50,7 @@ function Comic() {
         <div className={style.buttonWrapper}>
           {(comic.num > 1) && <button
             className={style.button}
-            onClick={() => window.location.replace(`${curr - 1}`)}
+            onClick={() => window.location.replace(`${comic.num - 1}`)}
           >
             &lt;&lt; Prev
           </button>}
@@ -64,7 +62,7 @@ function Comic() {
           </button>
           {(comic.num < maxNum) && <button
             className={style.button}
-            onClick={() => window.location.replace(`${curr + 1}`)}
+            onClick={() => window.location.replace(`${comic.num + 1}`)}
           >
             Next &gt;&gt;
           </button>}
