@@ -15,6 +15,9 @@ There are three routes:
  - `/maxnumber` Pulls the current day's image from the xkcd API and returns it's number.
  - `/:number` Pulls the xkcd API URL `https://xkcd.com/:number/info.0.json` and updates the view count of the associated record in the database.
 
+### Note:
+The server is hosted on [Render](render.com) using the free tier. On the free tier, the service is spun down after a period of inactivity; it may take a minute to spin up when it becomes active again.
+
 ## Front end
 
 The front end is built in React.
