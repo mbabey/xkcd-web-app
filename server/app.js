@@ -49,7 +49,6 @@ app.get('/', async (_, res) => {
 
   let viewCount;
   try {
-    console.log('[Access database on route \'/\']')
     viewCount = await incrementRecordGetViewCount(resContent.num);
     resContent.view_count = viewCount;
   } catch (error) {
@@ -58,7 +57,6 @@ app.get('/', async (_, res) => {
     return;
   }
 
-  console.log('Finally:', resContent);
   res.status(200).send(resContent);
 });
 
@@ -91,7 +89,6 @@ app.get('/:number', async (req, res) => {
 
   let viewCount;
   try {
-    console.log('[Access database on route \'/' + num + '\']');
     viewCount = await incrementRecordGetViewCount(resContent.num);
     resContent.view_count = viewCount;
   } catch (error) {
@@ -112,8 +109,6 @@ app.get('/:number', async (req, res) => {
  * @returns the updated viewCount of the record.
  */
 async function incrementRecordGetViewCount(num) {
-  console.log('[Access database in database function]')
-  console.log('The model:', ViewCount)
   try {
     const doc = await ViewCount.findOneAndUpdate(
       { comicNum: num },
@@ -123,10 +118,8 @@ async function incrementRecordGetViewCount(num) {
         upsert: true
       }
     );
-    console.log('[Access database in database function]')
     return doc.viewCount;
   } catch (error) {
-    console.log('[Error in database function]', error)
     throw Error('[Error accessing database] ' + error);
   }
 }

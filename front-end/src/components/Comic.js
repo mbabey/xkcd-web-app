@@ -4,8 +4,6 @@ import { MaxNumContext } from '../contexts/MaxNumContext';
 
 import style from '../styles/main.module.css'
 
-const URL_PLAIN = `http://localhost:8080`
-
 function Comic() {
   const { number } = useParams();
 
@@ -20,9 +18,9 @@ function Comic() {
     const fetchComic = async () => {
       let res;
       if (isNaN(number) || number <= 0) {
-        res = await fetch(URL_PLAIN);
+        res = await fetch(process.env.REACT_APP_API_URL);
       } else {
-        res = await fetch(URL_PLAIN + `/${number}`);
+        res = await fetch(process.env.REACT_APP_API_URL + `/${number}`);
       }
       const data = await res.json();
 
