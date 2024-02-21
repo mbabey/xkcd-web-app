@@ -11,6 +11,14 @@
   align-items: center;
 }
 
+.metadataWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+  margin: auto;
+}
+
 .imageWrapper {
   display: flex;
   justify-content: center;
