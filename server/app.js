@@ -47,7 +47,7 @@ app.get('/', async (_, res) => {
 
   let viewCount;
   try {
-    viewCount = await incrementDB(resContent.num);
+    viewCount = await incrementRecordGetViewCount(resContent.num);
     resContent.view_count = viewCount;
   } catch (error) {
     console.log(error);
@@ -87,7 +87,7 @@ app.get('/:number', async (req, res) => {
 
   let viewCount;
   try {
-    viewCount = await incrementDB(resContent.num);
+    viewCount = await incrementRecordGetViewCount(resContent.num);
     resContent.view_count = viewCount;
   } catch (error) {
     console.log(error);
@@ -98,7 +98,15 @@ app.get('/:number', async (req, res) => {
   res.status(200).send(resContent);
 });
 
-async function incrementDB(num) {
+/**
+ * Find a record from the database based on the comic number.
+ * Increment the viewCount of the record.
+ * Retrieve the updated record.
+ * Return the viewCount.
+ * @param {Number} num the comicNum of the record to update and retrieve. 
+ * @returns the updated viewCount of the record.
+ */
+async function incrementRecordGetViewCount(num) {
   try {
     const doc = await ViewCount.findOneAndUpdate(
       { comicNum: num },
