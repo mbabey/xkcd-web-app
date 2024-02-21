@@ -99,8 +99,6 @@ function getRandom(max, min) {
   return Math.ceil(Math.random() * (max - min) + min);
 }
 
-
-
 function parseTranscript(transcript) {
   const titleMatches = transcript.match(/{{(.*?)}}/g);
   const contextMatches = transcript.match(/\(\((.*?)\)\)|\[\[(.*?)\]\]/g);
