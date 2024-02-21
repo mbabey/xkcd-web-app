@@ -60,6 +60,23 @@ app.get('/', async (_, res) => {
   res.status(200).send(resContent);
 });
 
+app.get('/maxnumber', async (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+
+  let resContent;
+  try {
+    const res = await axios.get(process.env.XKCD_ROOT + '/info.0.json');
+    resContent = res.data.num;
+    console.log('[Response on route \'/maxnumber\']', resContent);
+  } catch (error) {
+    console.log('[Error on route \'/maxnumber\']', error.data);
+    res.status(500).send({ "error": "Could not fetch from xkcd API." });
+    return;
+  }
+
+  res.status(200).send({"maxNum": resContent});
+});
+
 /**
  * /[number]
  * Get and respond with the numbered comic in json format.
@@ -94,29 +111,6 @@ app.get('/:number', async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({ "error": "Could not access database for view count." });
-    return;
-  }
-
-  res.status(200).send(resContent);
-});
-
-app.get('/maxnumber', async (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-
-  const num = req.params.number;
-  if (isNaN(num)) {
-    res.status(404).send()
-    return;
-  }
-
-  let resContent;
-  try {
-    const res = await axios.get(process.env.XKCD_ROOT + '/info.0.json');
-    resContent = res.data;
-    console.log('[Response on route \'/maxnumber\']', resContent);
-  } catch (error) {
-    console.log('[Error on route \'/maxnumber\']', error.data);
-    res.status(500).send({ "error": "Could not fetch from xkcd API." });
     return;
   }
 

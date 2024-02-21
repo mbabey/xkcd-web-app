@@ -7,17 +7,18 @@ import style from '../styles/main.module.css'
 
 function App() {
 
+  const [maxNum, setMaxNum] = useState(0);
+
   useEffect(() => {
     const fetchMaxNum = async () => {
       const res = await fetch(process.env.REACT_APP_API_URL + '/maxnumber');
       const data = await res.json();
-      setMaxNum(data.num);
+      setMaxNum(data.maxNum);
     };
 
     fetchMaxNum();
-  })
-  const [maxNum, setMaxNum] = useState(0);
-
+  }, [])
+  
   return (
     <BrowserRouter>
       <MaxNumContext.Provider value={{ maxNum, setMaxNum }}>
