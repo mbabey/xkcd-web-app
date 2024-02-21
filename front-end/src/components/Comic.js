@@ -11,9 +11,7 @@ function Comic() {
 
   const [comic, setComicData] = useState(null);
   const [curr, setCurr] = useState(0);
-  const [isprev, setIsprev] = useState(true);
-  const [isnext, setIsnext] = useState(true);
-
+  
   useEffect(() => {
     const fetchComic = async () => {
       let res;
@@ -24,23 +22,12 @@ function Comic() {
       }
       const data = await res.json();
 
-      if (data.num < maxNum) {
-        setIsnext(true);
-      } else {
-        setIsnext(false);
-      }
-      if (data.num > 1) {
-        setIsprev(true);
-      } else {
-        setIsprev(false);
-      }
-
       setCurr(data.num);
       setComicData(data);
     };
 
     fetchComic();
-  }, [number, maxNum]);
+  }, [number]);
 
   if (!comic) {
     return <div>Loading...</div>;
@@ -63,7 +50,7 @@ function Comic() {
           {parseTranscript(comic.transcript)}
         </div>
         <div className={style.buttonWrapper}>
-          {isprev && <button
+          {(comic.num > 1) && <button
             className={style.button}
             onClick={() => window.location.replace(`${curr - 1}`)}
           >
@@ -75,7 +62,7 @@ function Comic() {
           >
             Random
           </button>
-          {isnext && <button
+          {(comic.num < maxNum) && <button
             className={style.button}
             onClick={() => window.location.replace(`${curr + 1}`)}
           >
