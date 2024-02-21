@@ -60,8 +60,7 @@ function Comic() {
         </div>
         <div className={style.altWrapper}>
           <p className={style.altText}>{comic.alt}</p>
-          <h3 className={style.title}>Transcript</h3>
-          <p className={style.altText}>{parseTranscript(comic.transcript)}</p>
+          {parseTranscript(comic.transcript)}
         </div>
         <div className={style.buttonWrapper}>
           {isprev && <button
@@ -98,19 +97,25 @@ function getRandom(max, min) {
 }
 
 function parseTranscript(transcript) {
+  if (transcript === '') {
+    return <></>;
+  }
+
   const titleMatches = transcript.match(/{{(.*?)}}/g);
   const contextMatches = transcript.match(/\(\((.*?)\)\)|\[\[(.*?)\]\]/g);
 
   const regexBraces = /{{(.*?)}}|\[\[(.*?)\]\]|\(\((.*?)\)\)/g;
   const noMatches = transcript.split(regexBraces).filter(Boolean);
-  console.log(noMatches);
 
   return (
-    <div>
-      <p>Title: {titleMatches}</p>
-      <p>Context: {contextMatches}</p>
-      <p>Transcription: {noMatches}</p>
-    </div>
+    <>
+      <h3 className={style.title}>Transcript</h3>
+      <div>
+        <p>Title: {titleMatches}</p>
+        <p>Context: {contextMatches}</p>
+        <p>Transcription: {noMatches}</p>
+      </div>
+    </>
   );
 }
 
