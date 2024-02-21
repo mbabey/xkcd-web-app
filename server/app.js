@@ -119,8 +119,10 @@ async function incrementRecordGetViewCount(num) {
         upsert: true
       }
     );
+    console.log('[Access database in database function]')
     return doc.viewCount;
   } catch (error) {
+    console.log('[Error in database function]', error)
     throw Error('[Error accessing database] ' + error);
   }
 }
