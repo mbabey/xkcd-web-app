@@ -1,5 +1,6 @@
 const express = require('express');
-const client = require('mongoose');
+const mongoose = require('mongoose');
+const ViewCount = require('./model.js');
 const axios = require('axios');
 require('dotenv').config();
 
@@ -9,9 +10,9 @@ const port = parseInt(process.env.PORT, 10) || 3000
 
 async function connectDB() {
   try {
-    await client.connect(process.env.DB_CONNECTION_STRING);
+    await mongoose.connect(process.env.DB_CONNECTION_STRING);
   } catch (error) {
-    throw Error('[Error connecting to database]' + error);
+    throw Error('[Error connecting to database] ' + error);
   }
 }
 
@@ -19,7 +20,7 @@ app.listen(port, async () => {
   try {
     await connectDB();
     console.log('Connected to database.');
-  } catch(error) {
+  } catch (error) {
     console.log(error);
     return;
   }
@@ -41,7 +42,17 @@ app.get('/', async (_, res) => {
   } catch (error) {
     console.log('[Error on route \'/\']', error.data);
     res.status(500).send({ "error": "Could not fetch from xkcd API." });
-    return
+    return;
+  }
+
+  let viewCount;
+  try {
+    viewCount = await incrementDB(resContent.num);
+    resContent.view_count = viewCount;
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ "error": "Could not access database for view count." });
+    return;
   }
 
   res.status(200).send(resContent);
@@ -74,25 +85,31 @@ app.get('/:number', async (req, res) => {
     return;
   }
 
+  let viewCount;
+  try {
+    viewCount = await incrementDB(resContent.num);
+    resContent.view_count = viewCount;
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ "error": "Could not access database for view count." });
+    return;
+  }
+
   res.status(200).send(resContent);
 });
 
 async function incrementDB(num) {
   try {
-    
-
-    const database = client.db(dbName);
-    const collection = database.collection(collectionName);
-
-    // Increment the value of the field and return the updated document
-    const updatedDocument = await collection.findOneAndUpdate(
-      { /* Your query to find the document */ },
-      { $inc: { [fieldName]: 1 } },
-       { returnOriginal: false }
+    const doc = await ViewCount.findOneAndUpdate(
+      { comicNum: num },
+      { $inc: { viewCount: 1 } },
+      {
+        new: true,
+        upsert: true
+      }
     );
-
-    return updatedDocument.value[fieldName];
-  } finally {
-    await client.close();
+    return doc.viewCount;
+  } catch (error) {
+    throw Error('[Error accessing database] ' + error);
   }
 }
