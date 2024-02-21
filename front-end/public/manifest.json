@@ -1,0 +1,8 @@
+{
+  "short_name": "XKCD App",
+  "name": "xkcd comics, courtesy of xkcd.",
+  "icons": [
+  ],
+  "start_url": ".",
+  "display": "standalone"
+}

@@ -111,6 +111,7 @@ app.get('/:number', async (req, res) => {
  */
 async function incrementRecordGetViewCount(num) {
   console.log('[Access database in database function]')
+  console.log('The model:', ViewCount)
   try {
     const doc = await ViewCount.findOneAndUpdate(
       { comicNum: num },
