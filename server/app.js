@@ -110,6 +110,7 @@ app.get('/:number', async (req, res) => {
  * @returns the updated viewCount of the record.
  */
 async function incrementRecordGetViewCount(num) {
+  console.log('[Access database in database function]')
   try {
     const doc = await ViewCount.findOneAndUpdate(
       { comicNum: num },
