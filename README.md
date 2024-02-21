@@ -4,7 +4,7 @@ A small web application wrapping the XKCD API.
 
 ![Diagram](readme-assets/image.png)
 
-A diagram of the 
+A diagram of the web app ecosystem.
 
 ## Server
 
@@ -40,3 +40,5 @@ The database is MongoDB. The database stores records in the form:
   2. The Comic component mounts and its `useEffect` triggers, calling either the `/` or `/:number` routes. The Comic `useEffect` depends on the `maxNum` context variable.
   3. The App `useEffect` receives a response from the server. It sets the `maxNum` context variable.
   4. The updating of the `maxNum` context variable triggers the `useEffect` in Comic again, creating the double-increment effect.
+
+  The solution likely involves changing the way the `maxNum` is stored and updated; it only needs to be updated once for the lifetime of the application.
