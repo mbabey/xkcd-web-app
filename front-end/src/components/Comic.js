@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { MaxNumContext } from '../contexts/MaxNumContext';
 
+import style from '../styles/main.module.css'
+
 const URL_PLAIN = `http://localhost:8080`
 
 function Comic(params) {
@@ -48,33 +50,42 @@ function Comic(params) {
 
   return (
     <div>
-      <h1>#{comic.num}: {comic.safe_title}</h1>
+      <h2 className={style.title}>#{comic.num}: {comic.safe_title}</h2>
+      <div className={style.content}>
+        <div className={style.imageWrapper}>
+          <img className={style.image} src={comic.img} alt={comic.alt} />
+        </div>
+        <div className={style.altWrapper}>
+          <p className={style.altText}>{comic.alt}</p>
+        </div>
+        <div className={style.buttonWrapper}>
+          {isprev && <button
+            className={style.button}
+            onClick={() => window.location.replace(`${curr - 1}`)}
+          >
+            &lt;&lt; Prev
+          </button>}
+          <button
+            className={style.button}
+            onClick={() => window.location.replace(`${getRandom(maxNum, 1)}`)}
+          >
+            Random
+          </button>
+          {isnext && <button
+            className={style.button}
+            onClick={() => window.location.replace(`${curr + 1}`)}
+          >
+            Next &gt;&gt;
+          </button>}
+        </div>
 
-      <img src={comic.img} alt={comic.alt} />
-      <div>
-        {isprev && <button onClick={() => {
-          window.location.replace(`${curr - 1}`)
-        }}>
-          Prev
-        </button>}
-        <button onClick={() => window.location.replace(`${getRandom(maxNum, 1)}`)}
-        >
-          Random
-        </button>
-        {isnext && <button onClick={() => {
-          window.location.replace(`${curr + 1}`)
-        }}>
-          Next
-        </button>}
       </div>
-      <p>{comic.alt}</p>
     </div>
   );
 }
 
-function getRandom(max, min)
-{
- return Math.ceil(Math.random() * (max - min) + min);
+function getRandom(max, min) {
+  return Math.ceil(Math.random() * (max - min) + min);
 }
 
 export default Comic;
