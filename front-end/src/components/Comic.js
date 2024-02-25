@@ -45,14 +45,14 @@ function Comic() {
     <div>
       <h2 className={style.title}>#{comic.num}: {comic.safe_title}</h2>
       <MetaData comic={comic} />
-        <div className={style.content}>
-          <button
-            className={style.button}
-            onClick={() => setShowTranscript(!showTranscript)}
-          >
-            View {showTranscript ? "Comic" : "Transcript"}
-          </button>
-        </div>
+      <div className={style.content}>
+        <button
+          className={style.button}
+          onClick={() => setShowTranscript(!showTranscript)}
+        >
+          View {showTranscript ? "Comic" : "Transcript"}
+        </button>
+      </div>
       <div className={style.content}>
         {
           (showTranscript && transcript)
@@ -75,7 +75,10 @@ function MetaData({ comic }) {
 }
 
 function getDate(day, month, year) {
-  const date = new Date(year, month, day).toLocaleDateString('default', {month: "long", day: "numeric", year: "numeric"});
+  const date = new Date(year, month, day).toLocaleDateString(
+    'default',
+    { month: "long", day: "numeric", year: "numeric" }
+  );
   return date;
 }
 
