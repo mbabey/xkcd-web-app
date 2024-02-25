@@ -60,14 +60,14 @@ function Comic() {
       <MetaData comic={comic} />
       <div className={style.sectionBreaker2}></div>
       <div className={style.content}>
-        <div className={style.buttonWrapper}>
+        {transcript && <div className={style.buttonWrapper}>
           <button
             className={style.button}
             onClick={() => setShowTranscript(!showTranscript)}
           >
             View {showTranscript ? "Comic" : "Transcript"}
           </button>
-        </div>
+        </div>}
         {
           (showTranscript && transcript)
           ||
