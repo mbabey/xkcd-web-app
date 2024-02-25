@@ -29,11 +29,23 @@ function Comic() {
   }, [number]);
 
   if (!comic) {
-    return <div className={style.title}>Loading...</div>;
+    return (
+      <div className={style.content}>
+        <div className={style.sectionBreaker1}></div>
+        <p>Loading...</p>
+        <div className={style.sectionBreaker2}></div>
+      </div>
+    );
   }
 
   if (comic.error) {
-    return <div className={style.title}>Error: Could not find the requested comic!</div>
+    return (
+      <div className={style.content}>
+        <div className={style.sectionBreaker1}></div>
+        <p>Issue #{number} does not exist!</p>
+        <div className={style.sectionBreaker2}></div>
+      </div>
+    );
   }
 
   let transcript = null;
@@ -43,23 +55,26 @@ function Comic() {
 
   return (
     <div>
-      <h2 className={style.title}>#{comic.num}: {comic.safe_title}</h2>
+      <div className={style.sectionBreaker1}></div>
       <MetaData comic={comic} />
+      <div className={style.sectionBreaker2}></div>
       <div className={style.content}>
-        <button
-          className={style.button}
-          onClick={() => setShowTranscript(!showTranscript)}
-        >
-          View {showTranscript ? "Comic" : "Transcript"}
-        </button>
-      </div>
-      <div className={style.content}>
+        <div className={style.buttonWrapper}>
+          <button
+            className={style.button}
+            onClick={() => setShowTranscript(!showTranscript)}
+          >
+            View {showTranscript ? "Comic" : "Transcript"}
+          </button>
+        </div>
         {
           (showTranscript && transcript)
           ||
           <ImageBlock comic={comic} />
         }
+        <div className={style.sectionBreaker1}></div>
         <NavMenu currNum={comic.num} maxNum={maxNum} />
+        <div className={style.sectionBreaker2}></div>
       </div>
     </div>
   );
@@ -69,6 +84,7 @@ function MetaData({ comic }) {
   return (
     <div className={style.metadataWrapper}>
       <p>{getDate(comic.day, comic.month, comic.year)}</p>
+      <h2 className={style.issueTitle}>Issue #{comic.num}: {comic.safe_title}</h2>
       <p>View count: {comic.view_count}</p>
     </div>
   );
@@ -106,7 +122,7 @@ function Transcript({ transcript }) {
 
   return (
     <div className={style.transcriptWrapper}>
-      <h3 className={style.title}>Transcript</h3>
+      <h3 className={style.textCenter}>Transcript</h3>
       <div>
         {exposed.map(entry => {
           return (

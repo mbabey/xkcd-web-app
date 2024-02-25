@@ -23,7 +23,7 @@ function App() {
     <BrowserRouter>
       <MaxNumContext.Provider value={{ maxNum, setMaxNum }}>
         <div>
-          <h1 className={style.title}>Comics!</h1>
+          <h1 className={style.textCenter}>Comics!</h1>
           <Routes>
             <Route path="/" exact element={<Comic />} />
             <Route path="/:number" element={<Comic />} />

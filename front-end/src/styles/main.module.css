@@ -1,5 +1,35 @@
-.title {
+body {
+  background-color: #efefef;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.textCenter {
   text-align: center;
+}
+
+.issueTitle {
+  width: 50%;
+}
+
+
+.metadataWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 70%;
+  margin: auto;
+  text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+  .issueTitle {
+    width: 100%;
+    margin: auto;
+  }
+
+  .metadataWrapper {
+    flex-direction: column;
+  }
 }
 
 .content {
@@ -11,18 +41,11 @@
   align-items: center;
 }
 
-.metadataWrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 70%;
-  margin: auto;
-}
-
 .imageWrapper {
   display: flex;
   justify-content: center;
   width: 90%;
+  margin: 5%;
 }
 
 .image {
@@ -69,9 +92,23 @@
 
 .transcriptWrapper {
   width: 70%;
-  font-family: 'Courier New', Courier, monospace;
+  
+  margin: 5%;
   padding: 10px;
-  background-color: #eee;
+  background-color: #fff;
   border-radius: 10px;
 }
 
+.sectionBreaker1 {
+  width: 100%;
+  height: 3px;
+  border-top: 3px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+.sectionBreaker2 {
+  width: 100%;
+  height: 3px;
+  border-top: 1px solid #000;
+  border-bottom: 3px solid #000;
+}
