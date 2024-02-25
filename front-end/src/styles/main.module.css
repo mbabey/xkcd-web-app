@@ -1,5 +1,35 @@
-.title {
+body {
+  background-color: #efefef;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.textCenter {
   text-align: center;
+}
+
+.issueTitle {
+  width: 50%;
+}
+
+
+.metadataWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 70%;
+  margin: auto;
+  text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+  .issueTitle {
+    width: 100%;
+    margin: auto;
+  }
+
+  .metadataWrapper {
+    flex-direction: column;
+  }
 }
 
 .content {
@@ -11,18 +41,11 @@
   align-items: center;
 }
 
-.metadataWrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 90%;
-  margin: auto;
-}
-
 .imageWrapper {
   display: flex;
   justify-content: center;
   width: 90%;
+  margin: 20px 5%;
 }
 
 .image {
@@ -30,6 +53,11 @@
   height: auto;
   max-width: 100%;
   max-height: 1024px;
+}
+
+.subTextWrapper {
+  width: 50%;
+  text-align: center;
 }
 
 .buttonWrapper {
@@ -40,7 +68,9 @@
 }
 
 .button {
-  margin: 5%;
+  cursor: pointer;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 10px 5%;
   padding: 5px 10px;
   background-color: #fff;
   border: 2px solid black;
@@ -49,15 +79,82 @@
   transition: all 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.button:hover {
+.button:not(.buttonDeactivated):hover {
   box-shadow: 0 0 0 #000;
 }
 
-.altWrapper {
+.buttonDeactivated {
+  cursor: none;
+  pointer-events: none;
+  background-color: #999;
+  opacity: 0.33;
+  box-shadow: none;
+}
+
+.transcriptWrapper {
   width: 70%;
-  font-family: 'Courier New', Courier, monospace;
+
+  margin: 5%;
   padding: 10px;
-  background-color: #eee;
+  background-color: #fff;
   border-radius: 10px;
 }
 
+.sectionBreaker1 {
+  width: 100%;
+  height: 3px;
+  border-top: 3px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+.sectionBreaker2 {
+  width: 100%;
+  height: 3px;
+  border-top: 1px solid #000;
+  border-bottom: 3px solid #000;
+}
+
+/* Source: https://loading.io/css/ */
+.loader {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.loader div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background: #000;
+  animation: loader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.loader div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+
+.loader div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+
+.loader div:nth-child(3) {
+  left: 56px;
+  animation-delay: 0;
+}
+
+@keyframes loader {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+
+  50%,
+  100% {
+    top: 24px;
+    height: 32px;
+  }
+}

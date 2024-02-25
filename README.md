@@ -37,13 +37,3 @@ The database is MongoDB. The database stores records in the form:
   viewCount: Number
 }
 ```
-
-# Issues
-
-- When the front end accesses the server in `useEffect` calls in `App.js` and `Comic.js`, it accesses the server twice. This manifests in the double-incrementing of the view count. This is likely due to the following sequence of events on page load:
-  1. The App component mounts and its `useEffect` triggers, calling the `/maxnumber` route.
-  2. The Comic component mounts and its `useEffect` triggers, calling either the `/` or `/:number` routes. The Comic `useEffect` depends on the `maxNum` context variable.
-  3. The App `useEffect` receives a response from the server. It sets the `maxNum` context variable.
-  4. The updating of the `maxNum` context variable triggers the `useEffect` in Comic again, creating the double-increment effect.
-
-  The solution likely involves changing the way the `maxNum` is stored and updated; it only needs to be updated once for the lifetime of the application.
