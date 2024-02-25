@@ -32,7 +32,8 @@ function Comic() {
     return (
       <div className={style.content}>
         <div className={style.sectionBreaker1}></div>
-        <p>Loading...</p>
+        <p>Loading</p>
+        <div className={style.loader}><div></div><div></div><div></div></div>
         <div className={style.sectionBreaker2}></div>
       </div>
     );
