@@ -75,7 +75,8 @@ function MetaData({ comic }) {
 }
 
 function getDate(day, month, year) {
-  return year + "/" + month + "/" + day;
+  const date = new Date(year, month, day).toLocaleDateString('default', {month: "long", day: "numeric", year: "numeric"});
+  return date;
 }
 
 function ImageBlock({ comic }) {
