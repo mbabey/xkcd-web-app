@@ -45,7 +45,7 @@ body {
   display: flex;
   justify-content: center;
   width: 90%;
-  margin: 5%;
+  margin: 20px 5%;
 }
 
 .image {
@@ -69,7 +69,8 @@ body {
 
 .button {
   cursor: pointer;
-  margin: 1.5% 5%;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 10px 5%;
   padding: 5px 10px;
   background-color: #fff;
   border: 2px solid black;
